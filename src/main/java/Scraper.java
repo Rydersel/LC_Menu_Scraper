@@ -1,11 +1,7 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.LinkedList;
-
-import java.net.URL;
-import java.util.Objects;
 
 /*
 KEY
@@ -24,7 +20,12 @@ Times:
 
 
  */
-public class Main {
+public class Scraper {
+
+
+
+
+
     public static String URL_Dinner = "https://lewisandclark.cafebonappetit.com/#dinner";
     public static String URL_Dinner_Legacy = "https://legacy.cafebonappetit.com/print-menu/cafe/150/menu/452158/days/today/pgbrks/0/";
 
@@ -130,11 +131,11 @@ public class Main {
 
 
         }
-        return "ERROR";
+        return "ERROR: Invalid Catagory";
 
     }
     public static void main(String[] args) {
-        System.out.println(Get_Items("#lunch",4));
+
 
     }
 }
