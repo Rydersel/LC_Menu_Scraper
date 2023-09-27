@@ -1,8 +1,8 @@
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 public class Runtime {
-    public static String ACC = "AC370d656edcf513875960d69e8c12e3ce";
-    public static String TOKEN  = "334266141213f19291bcf8c5a5b83cc1";
+    public static String ACC = "Protected";
+    public static String TOKEN  = "Protected";
     public static final String ACCOUNT_SID = ACC;//System.getenv(ACC);
     public static final String AUTH_TOKEN = TOKEN;//System.getenv(TOKEN);
 
