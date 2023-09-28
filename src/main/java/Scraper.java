@@ -1,11 +1,7 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.LinkedList;
-
-import java.net.URL;
-import java.util.Objects;
 
 /*
 KEY
@@ -24,7 +20,12 @@ Times:
 
 
  */
-public class Main {
+public class Scraper {
+
+
+
+
+
     public static String URL_Dinner = "https://lewisandclark.cafebonappetit.com/#dinner";
     public static String URL_Dinner_Legacy = "https://legacy.cafebonappetit.com/print-menu/cafe/150/menu/452158/days/today/pgbrks/0/";
 
@@ -50,26 +51,26 @@ public class Main {
 
     public static LinkedList Scrape(String TIMEX, int CATEGORYX, String Block_Val) {
         LinkedList<String> items = new LinkedList<String>();
-            try {
+        try {
 
-                final Document Dinner_doc = Jsoup.connect(URL_Dinner).get(); //Get Document
+            final Document Dinner_doc = Jsoup.connect(URL_Dinner).get(); //Get Document
 
-                Elements day = Dinner_doc.select(TIMEX);
-                Elements category = day.select(Block_Val);
-                //Grill: div.station-title-inline-block:nth-of-type(2)
-                //##div.site-panel__daypart-item:nth-of-type(10)
+            Elements day = Dinner_doc.select(TIMEX);
+            Elements category = day.select(Block_Val);
+            //Grill: div.station-title-inline-block:nth-of-type(2)
+            //##div.site-panel__daypart-item:nth-of-type(10)
 
-                Elements category_item = category.select("button.h4.site-panel__daypart-item-title");
+            Elements category_item = category.select("button.h4.site-panel__daypart-item-title");
 
 
-                category_item.forEach(el -> System.out.println(items.add(el.text())));
-                return items;
+            category_item.forEach(el -> System.out.println(items.add(el.text())));
+            return items;
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                return items;
-            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return items;
         }
+    }
 
 
     public static String Get_Items(String TIME, int CATEGORY) {
@@ -79,7 +80,7 @@ public class Main {
             case 1: { //Grill or Bakery
                 LinkedList<String> item_list = new LinkedList<String>();
                 item_list.addAll(0,Scrape(TIME,CATEGORY,grill));
-               return LinkedList_To_String(item_list);
+                return LinkedList_To_String(item_list);
 
             }
 
@@ -87,7 +88,7 @@ public class Main {
             {
                 LinkedList<String> item_list = new LinkedList<String>();
                 item_list.addAll(0,Scrape(TIME,CATEGORY,Knife_and_Fork));
-               return LinkedList_To_String(item_list);
+                return LinkedList_To_String(item_list);
             }
 
             case 3:  //Sunrise grill - breakfast only
@@ -109,9 +110,9 @@ public class Main {
                 item_list.addAll(item_list.size(),Scrape(TIME,CATEGORY,Bakery4));
                 for (int i = 0; i < item_list.size();i++)
                 {
-                //For Some reason Dressings and Desserts are grouped together
+                    //For Some reason Dressings and Desserts are grouped together
                     if (item_list.get(i).contains("Oil") || item_list.get(i).contains("Vinegar") || item_list.get(i).contains("Dressing")) {
-                //This is a quick and dirty way to remove dressings but should find a more longterm solution in the future
+                        //This is a quick and dirty way to remove dressings but should find a more longterm solution in the future
                         System.out.println("Removing: " + item_list.get(i));
                         item_list.remove(i);
                     }
@@ -130,11 +131,11 @@ public class Main {
 
 
         }
-        return "ERROR";
+        return "ERROR: Invalid Catagory";
 
     }
     public static void main(String[] args) {
-        System.out.println(Get_Items("#lunch",4));
+
 
     }
 }
